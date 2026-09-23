@@ -1,0 +1,13 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { DemoBand, PageIntro, SectionLabel, SiteShell } from "../components/site-shell";
+
+export const Route = createFileRoute("/platform")({ head: () => ({ meta: [{ title: "Platform | Viranetra" }, { name: "description", content: "Explore Viranetra’s cyber decision intelligence workflow." }, { property: "og:title", content: "Viranetra Platform" }, { property: "og:description", content: "From security telemetry to verified investigations and explainable response actions." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: Platform });
+
+const stages = [
+  ["01", "Collect", "Bring enterprise telemetry into one continuous decision layer."],
+  ["02", "Analyze", "Correlate events and identify patterns across security signals."],
+  ["03", "Validate", "Build evidence-driven investigations that analysts can inspect."],
+  ["04", "Respond", "Surface explainable actions for confident security decisions."],
+];
+
+function Platform() { return <SiteShell><PageIntro code="DOSSIER / PLATFORM" title="Turn security noise into trusted action." body="Viranetra continuously analyzes enterprise telemetry, correlates events, validates threats through evidence-driven investigations, and surfaces explainable response actions." /><section className="mx-auto max-w-[1440px] px-5 py-16 lg:px-12 lg:py-24"><SectionLabel>(A) DECISION PIPELINE</SectionLabel><div className="mt-10 grid gap-px bg-cool/10 lg:grid-cols-4">{stages.map(([n,t,d])=><article key={n} className="min-h-64 bg-ink p-6"><span className="font-mono text-[10px] tracking-[0.16em] text-signal-soft">{n}</span><h2 className="mt-12 font-display text-2xl font-semibold tracking-normal">{t}</h2><p className="mt-4 text-sm leading-relaxed text-mute">{d}</p></article>)}</div></section><section className="border-y border-cool/10 bg-ink-2"><div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-16 lg:grid-cols-12 lg:px-12 lg:py-24"><div className="lg:col-span-5"><SectionLabel>(B) EXPLAINABILITY</SectionLabel><h2 className="mt-5 font-display text-3xl font-semibold tracking-normal sm:text-5xl">Evidence travels with the decision.</h2></div><div className="space-y-6 lg:col-span-7">{["Correlated security events","Evidence-driven investigation","Explainable recommendation","Response-ready action"].map((x,i)=><div key={x} className="flex items-center justify-between border-b border-cool/10 pb-5"><span className="font-display text-lg font-semibold tracking-normal">{x}</span><span className="font-mono text-[10px] text-signal-soft">0{i+1}</span></div>)}</div></div></section><DemoBand /></SiteShell> }
