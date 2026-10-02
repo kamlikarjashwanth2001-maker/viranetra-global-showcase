@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Viranetra" },
-      { name: "description", content: "AI-powered cyber decision intelligence." },
+      { name: "description", content: "Agentic AI-powered cyber decision intelligence." },
       { name: "author", content: "Viranetra" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
