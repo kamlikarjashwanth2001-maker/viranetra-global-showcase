@@ -10,7 +10,7 @@ const agents = [
   ["04", "Vira Judge", "Governance & Policy Intelligence", "Evaluates findings against policy, governance, and compliance."],
   ["05", "Human-in-the-Loop", "Expert Validation", "SOC analysts and managers review and refine AI findings before they reach a decision-maker."],
   ["06", "Netra Responder", "Decision Intelligence Engine", "Delivers trusted, explainable, policy-aware decisions for security and business leaders."],
-];
+] as const;
 const path = ["Security Tools", "Validated Critical Alerts", "Adaptive Investigation", "Evidence Correlation", "Governance & Compliance", "Human Validation", "Decision Intelligence Dashboard", "Business Decision"];
 function Platform() { return <SiteShell><PageIntro code="DOSSIER / PLATFORM" title="Transforming cybersecurity into trusted decisions." body="An Agentic AI-powered cyber decision intelligence platform that sits above your existing security stack — not in place of it." />
   <section className="mx-auto max-w-[1440px] px-5 py-16 lg:px-12 lg:py-24"><SectionLabel>(A) THE DECISION PATH</SectionLabel><div className="mt-8 border-t border-cool/10">{path.map((item, i) => <div key={item} className="grid grid-cols-[3rem_1fr_auto] items-center gap-4 border-b border-cool/10 py-5"><span className="font-mono text-[10px] text-signal-soft">0{i + 1}</span><h2 className="font-display text-lg font-semibold sm:text-xl">{item}</h2><span className="font-mono text-signal-soft">{i < path.length - 1 ? "↓" : "◆"}</span></div>)}</div></section>
