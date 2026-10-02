@@ -14,7 +14,7 @@ export function Brand() {
     <Link to="/" className="flex items-center gap-2.5" aria-label="Viranetra home">
       <span className="grid size-6 place-items-center bg-signal font-mono text-[11px] font-medium text-ink">V</span>
       <span className="font-display text-sm font-semibold tracking-[0.24em]">VIRANETRA</span>
-      <span className="ml-1 hidden font-mono text-[9px] tracking-[0.2em] text-mute sm:inline">SYS/07</span>
+      <span className="ml-1 hidden font-mono text-[9px] tracking-[0.2em] text-mute sm:inline">DECISION INTELLIGENCE</span>
     </Link>
   );
 }
@@ -37,7 +37,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <summary className="cursor-pointer list-none px-5 py-2 font-mono text-[10px] tracking-[0.18em] text-mute">NAVIGATION +</summary>
           <nav className="grid grid-cols-2 gap-px bg-cool/10" aria-label="Mobile navigation">
             {navigation.map(([label, to]) => <Link key={to} to={to} className="bg-ink px-5 py-4 font-mono text-[10px] tracking-[0.14em] text-mute">{label}</Link>)}
-            <Link to="/contact" className="bg-ink px-5 py-4 font-mono text-[10px] tracking-[0.14em] text-signal-soft">CONTACT</Link>
+             <Link to="/contact" className="bg-ink px-5 py-4 font-mono text-[10px] tracking-[0.14em] text-signal-soft">CONTACT</Link>
           </nav>
         </details>
       </header>
@@ -45,7 +45,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <footer className="border-t border-cool/10">
         <div className="mx-auto max-w-[1440px] px-5 py-10 lg:px-12">
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-            <div><Brand /><p className="mt-3 max-w-[36ch] text-xs leading-relaxed text-mute">AI-powered cyber decision intelligence for modern security teams.</p></div>
+             <div><Brand /><p className="mt-3 max-w-[36ch] text-xs leading-relaxed text-mute">Agentic AI-Powered Cyber Decision Intelligence Platform.</p><p className="mt-3 font-mono text-[10px] text-mute">HITH Technologies Pvt. Ltd.</p></div>
             <nav className="grid grid-cols-2 gap-x-10 gap-y-2 font-mono text-[10px] tracking-[0.12em] text-mute sm:grid-cols-3">
               {navigation.map(([label, to]) => <Link key={to} to={to} className="hover:text-cool">{label}</Link>)}
               <Link to="/contact" className="text-signal-soft hover:text-signal">CONTACT</Link>
@@ -80,7 +80,7 @@ export function DemoBand() {
     <section className="mx-auto max-w-[1440px] px-5 pb-20 lg:px-12 lg:pb-28">
       <div className="relative overflow-hidden border border-cool/10 bg-ink-2/70 p-8 sm:p-12">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_120%_at_100%_0%,color-mix(in_oklab,var(--signal)_16%,transparent),transparent_55%)]" />
-        <div className="relative max-w-[42rem]"><SectionLabel>(D) REQUEST DEMO</SectionLabel><h2 className="mt-4 font-display text-3xl font-semibold tracking-normal sm:text-5xl">Bring the dossier to your desk.</h2><p className="mt-4 max-w-[52ch] leading-relaxed text-mute">See how Viranetra turns security signals into verified investigations and defensible response actions.</p><Link to="/contact" className="mt-8 inline-flex bg-signal px-5 py-3 font-mono text-[11px] tracking-[0.14em] text-ink hover:bg-signal-soft">REQUEST A PERSONALIZED DEMO →</Link></div>
+         <div className="relative max-w-[42rem]"><SectionLabel>(D) START A CONVERSATION</SectionLabel><h2 className="mt-4 font-display text-3xl font-semibold tracking-normal sm:text-5xl">Turn investigation into trusted decisions.</h2><p className="mt-4 max-w-[52ch] leading-relaxed text-mute">Explore a pilot deployment, see the platform in action, or partner with Viranetra.</p><div className="mt-8 flex flex-wrap items-center gap-6"><Link to="/contact" className="inline-flex bg-signal px-5 py-3 font-mono text-[11px] tracking-[0.14em] text-ink hover:bg-signal-soft">REQUEST A DEMO →</Link><Link to="/contact" hash="partner" className="font-mono text-[11px] tracking-[0.14em] text-signal-soft hover:text-cool">BECOME A PARTNER →</Link></div></div>
       </div>
     </section>
   );
