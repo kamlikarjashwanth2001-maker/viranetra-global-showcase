@@ -1,5 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { Button } from "./ui/button";
 
 const navigation = [
   ["HOME", "/"],
@@ -42,6 +44,15 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </details>
       </header>
       <main>{children}</main>
+      <section aria-labelledby="trial-heading" className="border-y border-signal/30 bg-signal/15">
+        <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-7 px-5 py-16 text-center lg:px-12">
+          <h2 id="trial-heading" className="font-display text-3xl font-semibold leading-tight sm:text-4xl">Try Viranetra free for 15 days</h2>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Button asChild className="h-auto rounded-none bg-signal px-5 py-3 font-mono text-[11px] tracking-[0.14em] text-ink hover:bg-signal-soft"><Link to="/contact" hash="trial-request">REQUEST FREE TRIAL <ArrowUpRight aria-hidden="true" /></Link></Button>
+            <Button asChild variant="ghost" className="h-auto rounded-none border border-cool/25 px-5 py-3 font-mono text-[11px] tracking-[0.14em] text-cool hover:bg-cool/10 hover:text-cool"><Link to="/contact">CONTACT US <ArrowUpRight aria-hidden="true" /></Link></Button>
+          </div>
+        </div>
+      </section>
       <footer className="border-t border-cool/10">
         <div className="mx-auto max-w-[1440px] px-5 py-10 lg:px-12">
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">

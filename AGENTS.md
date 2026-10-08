@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the trial invitation in SiteShell so every public page exposes the same contact-based trial request, without implying automated trial provisioning.
