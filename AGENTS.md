@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep the trial invitation in SiteShell so every public page exposes the same contact-based trial request, without implying automated trial provisioning.
+- Keep product illustrations in the shared ProductVisual component as accessible, responsive vector diagrams grounded in approved platform content, so they remain sharp without fabricating product screenshots.
