@@ -9,3 +9,6 @@
 - [x] Add relevant cybersecurity images without changing the existing design
 - [x] Add the 15-day free trial invitation and verify the additions
 - [x] Replace AI-looking imagery with premium product-focused cybersecurity visuals and verify both pages
+- [ ] Rebuild all six pages in the approved silver-and-white reference style with extracted mascot
+- [ ] Add contact validation, honest email handoff state, and requested legal links
+- [ ] Verify all pages and mobile layouts
