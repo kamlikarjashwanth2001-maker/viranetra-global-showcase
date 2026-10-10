@@ -1,98 +1,20 @@
-import { Link, useRouterState } from "@tanstack/react-router";
-import type { ReactNode } from "react";
-import { ArrowUpRight } from "lucide-react";
-import { Button } from "./ui/button";
-
-const navigation = [
-  ["HOME", "/"],
-  ["PLATFORM", "/platform"],
-  ["CAPABILITIES", "/capabilities"],
-  ["INDUSTRIES", "/industries"],
-  ["ABOUT", "/about"],
-] as const;
-
-export function Brand() {
-  return (
-    <Link to="/" className="flex items-center gap-2.5" aria-label="Viranetra home">
-      <span className="grid size-6 place-items-center bg-signal font-mono text-[11px] font-medium text-ink">V</span>
-      <span className="font-display text-sm font-semibold tracking-[0.24em]">VIRANETRA</span>
-      <span className="ml-1 hidden font-mono text-[9px] tracking-[0.2em] text-mute sm:inline">DECISION INTELLIGENCE</span>
-    </Link>
-  );
+import { Link, useRouterState } from '@tanstack/react-router';
+import { useState, type ReactNode } from 'react';
+import { ArrowUpRight, ArrowRight, Menu, X, Search, ShieldCheck, Users, Sparkles } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Button } from './ui/button';
+import { journey } from '../lib/marketing';
+const navigation = [['Home','/'],['Platform','/platform'],['Capabilities','/capabilities'],['Industries','/industries'],['About','/about']] as const;
+export function Brand() { return <Link to="/" className="text-sm font-extrabold" aria-label="Viranetra home">VIRANETRA<sup>®</sup></Link>; }
+export function Reveal({children,className=''}:{children:ReactNode;className?:string}) { const reduced=useReducedMotion(); return <motion.div className={className} initial={reduced?false:{opacity:0,y:18}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.1}} transition={{duration:.5}}>{children}</motion.div>; }
+export function Action({children,hash,secondary=false}:{children:ReactNode;hash?:string;secondary?:boolean}) { return <Button asChild variant={secondary?'link':'default'} className={secondary?'h-11 px-0 text-xs text-foreground':'pill'}><Link to="/contact" hash={hash}>{children}{!secondary&&<span className="arrow-disc"><ArrowRight size={15}/></span>}</Link></Button>; }
+export function SiteShell({children}:{children:ReactNode}) {
+ const [open,setOpen]=useState(false);const path=useRouterState({select:s=>s.location.pathname});
+ return <div className="site-frame relative"><header className="nav-wrap"><nav className="floating-nav" aria-label="Main navigation"><span className="md:hidden"><Brand/></span><div className="hidden items-center gap-6 md:flex">{navigation.map(([name,to])=><Link key={to} to={to} className={`text-[11px] transition-opacity hover:opacity-60 ${path===to?'font-semibold':'font-normal'}`}>{name}</Link>)}</div><div className="hidden md:block"><Action>Request Demo</Action></div><Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label={open?'Close navigation':'Open navigation'} aria-expanded={open} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button></nav>{open&&<nav className="mx-6 mt-3 grid gap-1 rounded-2xl bg-background p-4 shadow-sm md:hidden" aria-label="Mobile navigation">{navigation.map(([name,to])=><Link key={to} to={to} onClick={()=>setOpen(false)} className="rounded-lg px-4 py-3 text-sm">{name}</Link>)}<Action>Request Demo</Action></nav>}</header><main>{children}</main><div className="content-grid"><section className="section text-center" aria-labelledby="trial-heading"><Reveal><span className="mb-4 inline-flex rounded-full bg-mint px-4 py-2 text-[10px] font-medium">YOUR NEXT TRUSTED DECISION STARTS HERE</span><h2 id="trial-heading" className="section-title">Try Viranetra free for 15 days</h2><div className="mt-6 flex flex-wrap justify-center gap-7"><Action hash="trial-request">Request Free Trial</Action><Action secondary>Contact Us</Action></div></Reveal></section></div><footer className="px-8 py-10 md:px-20"><div className="grid gap-8 md:grid-cols-[1fr_auto]"><div><Brand/><p className="mt-3 max-w-72 text-xs">Agentic AI-Powered Cyber Decision Intelligence Platform.</p><p className="mt-2 text-xs">HITH Technologies Pvt. Ltd.</p></div><nav className="grid grid-cols-3 gap-x-8 gap-y-4 text-xs" aria-label="Footer navigation">{navigation.map(([name,to])=><Link key={to} to={to}>{name}</Link>)}<Link to="/contact">Contact</Link><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link></nav></div><div className="mt-8 flex flex-wrap justify-between gap-3 border-t pt-5 text-[10px] text-muted-foreground"><span>© 2026 Viranetra</span><span>Transforming cybersecurity into trusted decisions.</span></div></footer></div>;
 }
-
-export function SiteShell({ children }: { children: ReactNode }) {
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
-  return (
-    <div className="min-h-screen bg-ink font-body text-cool antialiased selection:bg-signal/30 selection:text-cool">
-      <header className="sticky top-0 z-50 border-b border-cool/10 bg-ink/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between px-5 lg:px-12">
-          <Brand />
-          <nav className="hidden items-center gap-7 font-mono text-[11px] tracking-[0.14em] text-mute md:flex" aria-label="Main navigation">
-            {navigation.map(([label, to]) => (
-              <Link key={to} to={to} className={pathname === to ? "text-cool" : "transition-colors hover:text-cool"}>{label}</Link>
-            ))}
-          </nav>
-          <Link to="/contact" className="bg-signal px-3 py-2 font-mono text-[10px] tracking-[0.12em] text-ink ring-1 ring-cool/10 transition-colors hover:bg-signal-soft sm:px-4 sm:text-[11px]">REQUEST DEMO</Link>
-        </div>
-        <details className="border-t border-cool/10 md:hidden">
-          <summary className="cursor-pointer list-none px-5 py-2 font-mono text-[10px] tracking-[0.18em] text-mute">NAVIGATION +</summary>
-          <nav className="grid grid-cols-2 gap-px bg-cool/10" aria-label="Mobile navigation">
-            {navigation.map(([label, to]) => <Link key={to} to={to} className="bg-ink px-5 py-4 font-mono text-[10px] tracking-[0.14em] text-mute">{label}</Link>)}
-             <Link to="/contact" className="bg-ink px-5 py-4 font-mono text-[10px] tracking-[0.14em] text-signal-soft">CONTACT</Link>
-          </nav>
-        </details>
-      </header>
-      <main>{children}</main>
-      <section aria-labelledby="trial-heading" className="border-y border-signal/30 bg-signal/15">
-        <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-7 px-5 py-16 text-center lg:px-12">
-          <h2 id="trial-heading" className="font-display text-3xl font-semibold leading-tight sm:text-4xl">Try Viranetra free for 15 days</h2>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button asChild className="h-auto rounded-none bg-signal px-5 py-3 font-mono text-[11px] tracking-[0.14em] text-ink hover:bg-signal-soft"><Link to="/contact" hash="trial-request">REQUEST FREE TRIAL <ArrowUpRight aria-hidden="true" /></Link></Button>
-            <Button asChild variant="ghost" className="h-auto rounded-none border border-cool/25 px-5 py-3 font-mono text-[11px] tracking-[0.14em] text-cool hover:bg-cool/10 hover:text-cool"><Link to="/contact">CONTACT US <ArrowUpRight aria-hidden="true" /></Link></Button>
-          </div>
-        </div>
-      </section>
-      <footer className="border-t border-cool/10">
-        <div className="mx-auto max-w-[1440px] px-5 py-10 lg:px-12">
-          <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-             <div><Brand /><p className="mt-3 max-w-[36ch] text-xs leading-relaxed text-mute">Agentic AI-Powered Cyber Decision Intelligence Platform.</p><p className="mt-3 font-mono text-[10px] text-mute">HITH Technologies Pvt. Ltd.</p></div>
-            <nav className="grid grid-cols-2 gap-x-10 gap-y-2 font-mono text-[10px] tracking-[0.12em] text-mute sm:grid-cols-3">
-              {navigation.map(([label, to]) => <Link key={to} to={to} className="hover:text-cool">{label}</Link>)}
-              <Link to="/contact" className="text-signal-soft hover:text-signal">CONTACT</Link>
-            </nav>
-          </div>
-          <div className="mt-10 flex flex-col gap-2 border-t border-cool/10 pt-5 font-mono text-[10px] tracking-[0.14em] text-mute/60 sm:flex-row sm:justify-between"><span>© 2026 VIRANETRA</span><span>CYBER DECISION INTELLIGENCE</span></div>
-        </div>
-      </footer>
-    </div>
-  );
-}
-
-export function PageIntro({ code, title, body }: { code: string; title: string; body: string }) {
-  return (
-    <section className="relative overflow-hidden border-b border-cool/10 signal-grid">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_120%_at_90%_0%,color-mix(in_oklab,var(--signal)_14%,transparent),transparent_55%)]" />
-      <div className="relative mx-auto max-w-[1440px] px-5 py-16 sm:py-24 lg:px-12">
-        <div className="font-mono text-[10px] tracking-[0.2em] text-signal-soft">{code}</div>
-        <h1 className="mt-5 max-w-[16ch] font-display text-4xl font-semibold leading-[1.03] tracking-normal text-cool sm:text-6xl lg:text-7xl">{title}</h1>
-        <p className="mt-6 max-w-[54ch] text-base leading-relaxed text-mute sm:text-lg">{body}</p>
-      </div>
-    </section>
-  );
-}
-
-export function SectionLabel({ children }: { children: ReactNode }) {
-  return <div className="font-mono text-[10px] tracking-[0.2em] text-signal-soft">{children}</div>;
-}
-
-export function DemoBand() {
-  return (
-    <section className="mx-auto max-w-[1440px] px-5 pb-20 lg:px-12 lg:pb-28">
-      <div className="relative overflow-hidden border border-cool/10 bg-ink-2/70 p-8 sm:p-12">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_120%_at_100%_0%,color-mix(in_oklab,var(--signal)_16%,transparent),transparent_55%)]" />
-         <div className="relative max-w-[42rem]"><SectionLabel>(D) START A CONVERSATION</SectionLabel><h2 className="mt-4 font-display text-3xl font-semibold tracking-normal sm:text-5xl">Turn investigation into trusted decisions.</h2><p className="mt-4 max-w-[52ch] leading-relaxed text-mute">Explore a pilot deployment, see the platform in action, or partner with Viranetra.</p><div className="mt-8 flex flex-wrap items-center gap-6"><Link to="/contact" className="inline-flex bg-signal px-5 py-3 font-mono text-[11px] tracking-[0.14em] text-ink hover:bg-signal-soft">REQUEST A DEMO →</Link><Link to="/contact" hash="partner" className="font-mono text-[11px] tracking-[0.14em] text-signal-soft hover:text-cool">BECOME A PARTNER →</Link></div></div>
-      </div>
-    </section>
-  );
-}
+export function HeroStage() { const chips=[['Investigation',Search,'bg-cyan','chip-a'],['Governance',ShieldCheck,'bg-peach','chip-b'],['Validation',Users,'bg-mint','chip-c'],['Decision',Sparkles,'bg-lavender','chip-d']] as const;return <div className="hero-stage"><div className="wordmark" aria-label="Viranetra">VIRANETRA<sup>®</sup></div><img src="/robot.png" width="149" height="273" className="robot" alt="Viranetra hooded robot mascot with glowing red eyes" fetchPriority="high"/>{chips.map(([label,Icon,tone,pos])=><div key={label} className={`chip ${pos}`}><span className={`icon-tile ${tone}`}><Icon size={15}/></span>{label}</div>)}</div>; }
+export function PageIntro({code,title,body}:{code:string;title:string;body:string}) { return <><HeroStage/><div className="content-grid"><section className="section text-center"><Reveal><SectionLabel>{code.replace('DOSSIER / ','')}</SectionLabel><h1 className="mx-auto mt-5 max-w-[760px] text-4xl font-semibold leading-[1.1] md:text-5xl">{title}</h1><p className="mx-auto mt-5 max-w-[620px] text-sm">{body}</p></Reveal></section></div></>; }
+export function SectionLabel({children}:{children:ReactNode}) {return <div className="eyebrow">{children}</div>;}
+export function DemoBand() {return <div className="content-grid"><section className="section"><Reveal className="cta-band text-center"><h2 className="mx-auto max-w-xl text-3xl font-semibold leading-tight md:text-4xl">Turn investigation into trusted decisions.</h2><p className="mx-auto mt-4 max-w-lg text-sm">Explore a pilot deployment, see the platform in action, or partner with Viranetra.</p><div className="mt-7 flex flex-wrap items-center justify-center gap-7"><Action>Request a Demo</Action><Button asChild variant="link" className="text-xs text-background"><Link to="/contact" hash="partner">Become a Partner <ArrowUpRight size={14}/></Link></Button></div></Reveal></section></div>;}
+export function DecisionPath() {return <section className="section"><SectionLabel>THE JOURNEY</SectionLabel><h2 className="section-title mt-4 max-w-xl">Every alert follows one governed path.</h2><p className="mt-4 max-w-lg text-sm">From raw signal to a decision leaders can stand behind.</p><ol className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">{journey.map((step,i)=><li key={step} className="min-w-0 border-t pt-4"><div className="flex items-center justify-between text-xs text-muted-foreground"><span>0{i+1}/</span><ArrowRight size={14}/></div><h3 className="mt-4 text-sm font-semibold">{step}</h3></li>)}</ol></section>;}
+export function InfoCards({items}:{items:string[][]}) {const icons=[Sparkles,Search,ShieldCheck,Users];return <div className="mt-9 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{items.map(([name,role,body],i)=>{const Icon=icons[i%icons.length];return <Reveal key={name}><article className={`info-card h-full ${i%3===1?'featured':''}`}><div className="flex items-center justify-between"><span className="text-xs">{String(i+1).padStart(2,'0')}/</span><span className="icon-tile bg-lavender text-foreground"><Icon size={18}/></span></div><h3 className="mt-8 text-xl font-semibold">{name}</h3>{role&&<div className="mt-2 text-xs font-medium">{role}</div>}<p className="mt-4 text-xs">{body}</p></article></Reveal>;})}</div>;}
