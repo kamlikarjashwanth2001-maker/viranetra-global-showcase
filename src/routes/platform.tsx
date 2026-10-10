@@ -1,19 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { DemoBand, PageIntro, SectionLabel, SiteShell } from "../components/site-shell";
-import { ProductVisual } from "../components/product-visual";
-
-export const Route = createFileRoute("/platform")({ head: () => ({ meta: [{ title: "Platform & AI Agents | Viranetra" }, { name: "description", content: "Explore Viranetra's Agentic AI ecosystem, from security visibility and adaptive investigation to governance, human validation, and trusted decisions." }, { property: "og:title", content: "Viranetra Platform & AI Agents" }, { property: "og:description", content: "A governed path from validated alerts to explainable business decisions." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: Platform });
-
-const agents = [
-  ["01", "Vira Cortex", "Orchestration Engine", "Coordinates every specialized agent across the platform."],
-  ["02", "Netra Scan", "Security Visibility Engine", "Collects and analyzes telemetry across the environment."],
-  ["03", "Vira Deep", "Adaptive Investigation Engine", "Runs deep, contextual investigations into validated alerts."],
-  ["04", "Vira Judge", "Governance & Policy Intelligence", "Evaluates findings against policy, governance, and compliance."],
-  ["05", "Human-in-the-Loop", "Expert Validation", "SOC analysts and managers review and refine AI findings before they reach a decision-maker."],
-  ["06", "Netra Responder", "Decision Intelligence Engine", "Delivers trusted, explainable, policy-aware decisions for security and business leaders."],
-] as const;
-const path = ["Security Tools", "Validated Critical Alerts", "Adaptive Investigation", "Evidence Correlation", "Governance & Compliance", "Human Validation", "Decision Intelligence Dashboard", "Business Decision"];
-function Platform() { return <SiteShell><PageIntro code="DOSSIER / PLATFORM" title="Transforming cybersecurity into trusted decisions." body="An Agentic AI-powered cyber decision intelligence platform that sits above your existing security stack — not in place of it." />
-  <ProductVisual variant="agents" />
-  <section className="mx-auto max-w-[1440px] px-5 py-16 lg:px-12 lg:py-24"><SectionLabel>(A) THE DECISION PATH</SectionLabel><div className="mt-8 border-t border-cool/10">{path.map((item, i) => <div key={item} className="grid grid-cols-[3rem_1fr_auto] items-center gap-4 border-b border-cool/10 py-5"><span className="font-mono text-[10px] text-signal-soft">0{i + 1}</span><h2 className="font-display text-lg font-semibold sm:text-xl">{item}</h2><span className="font-mono text-signal-soft">{i < path.length - 1 ? "↓" : "◆"}</span></div>)}</div></section>
-  <section className="border-y border-cool/10 bg-ink-2"><div className="mx-auto max-w-[1440px] px-5 py-16 lg:px-12 lg:py-24"><SectionLabel>(B) AI AGENT ECOSYSTEM</SectionLabel><h2 className="mt-4 max-w-[24ch] font-display text-3xl font-semibold sm:text-5xl">Specialized intelligence. One trusted outcome.</h2><div className="mt-10 grid gap-px bg-cool/10 sm:grid-cols-2 lg:grid-cols-3">{agents.map(([n,name,role,body]) => <article key={name} className="min-h-64 bg-ink-2 p-7"><span className="font-mono text-[10px] text-signal-soft">AGENT / {n}</span><h3 className="mt-10 font-display text-2xl font-semibold">{name}</h3><div className="mt-2 font-mono text-[10px] tracking-[0.1em] text-signal-soft">{role.toUpperCase()}</div><p className="mt-5 text-sm leading-relaxed text-mute">{body}</p></article>)}</div></div></section><DemoBand /></SiteShell> }
+import { createFileRoute } from '@tanstack/react-router';
+import { SiteShell,PageIntro,InfoCards,DecisionPath,DemoBand,SectionLabel } from '../components/site-shell';
+import { agents,pageHead } from '../lib/marketing';
+export const Route=createFileRoute('/platform')({head:()=>pageHead('Platform & AI Agents | Viranetra','Explore Viranetra’s specialized AI agents for security visibility, adaptive investigation, governance, human validation, and trusted decisions.','/platform'),component:Platform});
+function Platform(){return <SiteShell><PageIntro code="PLATFORM & AI AGENTS" title="Transforming cybersecurity into trusted decisions." body="An Agentic AI-powered cyber decision intelligence platform that sits above your existing security stack, not in place of it."/><div className="content-grid"><section className="section"><SectionLabel>AI AGENT ECOSYSTEM</SectionLabel><h2 className="section-title mt-4 max-w-xl">Specialized intelligence.<br/>One trusted outcome.</h2><InfoCards items={agents}/></section><DecisionPath/></div><DemoBand/></SiteShell>;}
