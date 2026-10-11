@@ -12,3 +12,4 @@
 - [ ] Rebuild all six pages in the approved silver-and-white reference style with extracted mascot
 - [ ] Add contact validation, honest email handoff state, and requested legal links
 - [ ] Verify all pages and mobile layouts
+- [ ] Correct the hero mascot extraction and finish the complete website
