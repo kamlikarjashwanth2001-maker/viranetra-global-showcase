@@ -25,11 +25,7 @@
 .chip-a { left:25%; top:102px; transform:rotate(-8deg); } .chip-b { left:46%;top:128px;transform:rotate(6deg); } .chip-c { right:6%;bottom:32px;transform:rotate(-6deg); } .chip-d { right:24%;bottom:17px;transform:rotate(5deg); }
 .pill { border-radius:999px; padding:7px 7px 7px 20px; height:44px; gap:18px; font-size:12px; box-shadow:0 3px 5px color-mix(in oklab,var(--foreground) 20%,transparent); }
 .arrow-disc { display:grid; place-items:center; width:27px; height:27px; border-radius:50%; background:var(--background); color:var(--foreground); flex-shrink:0; }
-.info-card { position:relative; padding:28px; border-radius:24px; background:var(--card); transition:transform .25s; min-width:0; } .info-card:hover { transform:translateY(-5px); } .info-card.featured { background:var(--highlight); color:var(--background); } .info-card.featured p { color:var(--background); } .info-card.featured::before { content:''; position:absolute; z-index:-1; inset:12px 8px -10px; border-radius:24px; background:color-mix(in oklab,var(--highlight) 30%,var(--background)); }
-.section .grid > :nth-child(4n+1) .info-card:not(.featured) { background:var(--cyan); }
-.section .grid > :nth-child(4n+2) .info-card:not(.featured) { background:var(--pink); }
-.section .grid > :nth-child(4n+3) .info-card:not(.featured) { background:var(--mint); }
-.section .grid > :nth-child(4n+4) .info-card:not(.featured) { background:var(--peach); }
+.info-card { position:relative; padding:28px; border-radius:24px; background:var(--highlight); color:var(--background); transition:transform .25s; min-width:0; } .info-card:hover { transform:translateY(-5px); } .info-card p, .info-card .text-muted-foreground { color:color-mix(in oklab,var(--background) 82%,transparent); } .info-card.featured::before { content:''; position:absolute; z-index:-1; inset:12px 8px -10px; border-radius:24px; background:color-mix(in oklab,var(--highlight) 55%,var(--foreground)); }
 .cta-band { background:var(--highlight); color:var(--background); border-radius:24px; padding:56px; } .cta-band p { color:var(--background); opacity:.9; }
 .mock-panel { background:var(--card); border-radius:24px; padding:24px; min-width:0; position:relative; } .mock-row { display:flex; align-items:center; gap:10px; margin:12px 0; padding:12px; border-radius:10px; background:var(--background); box-shadow:var(--chip-shadow); }
 .mock-row:nth-of-type(3) { margin-left:22px; } .icon-tile { display:grid;place-items:center; width:40px;height:40px;border-radius:14px;flex-shrink:0; }
