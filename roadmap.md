@@ -9,6 +9,9 @@
 - [x] Add relevant cybersecurity images without changing the existing design
 - [x] Add the 15-day free trial invitation and verify the additions
 - [x] Replace AI-looking imagery with premium product-focused cybersecurity visuals and verify both pages
-- [ ] Rebuild all six pages in the approved silver-and-white reference style with extracted mascot
-- [ ] Add contact validation, honest email handoff state, and requested legal links
-- [ ] Verify all pages and mobile layouts
+- [x] Rebuild all six pages in the approved silver-and-white reference style with extracted mascot
+- [x] Add contact validation, honest email handoff state, and requested legal links
+- [x] Verify all pages and mobile layouts
+- [x] Correct the hero mascot extraction and finish the complete website
+- [ ] Replace legal notices with company-approved policies — awaiting supplied policy text
+- [ ] Confirm the contact email destination — awaiting confirmation of hello@viranetra.com
