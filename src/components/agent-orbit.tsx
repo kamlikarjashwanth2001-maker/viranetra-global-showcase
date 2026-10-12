@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Eye, Network, Radar, Microscope, Scale, UserCheck, Zap, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { agents } from '../lib/marketing';
@@ -13,16 +13,19 @@ export function AgentOrbit() {
   const [hover, setHover] = useState(false);
   const [desk, setDesk] = useState(false);
   const [tick, setTick] = useState(0);
+  const box = useRef<HTMLDivElement>(null);
+  const [cw, setCw] = useState(0);
+  useEffect(() => { const el = box.current; if (!el) return; const o = new ResizeObserver(([e]) => setCw(e.contentRect.width)); o.observe(el); return () => o.disconnect(); }, []);
   useEffect(() => { const m = window.matchMedia('(min-width:640px)'); const f = () => setDesk(m.matches); f(); m.addEventListener('change', f); return () => m.removeEventListener('change', f); }, []);
   useEffect(() => { if (paused || hover || reduced) return; const t = setInterval(() => setStep(s => s + 1), 3000); return () => clearInterval(t); }, [paused, hover, reduced, tick]);
   const active = ((step % N) + N) % N;
   const go = (d: number) => { setStep(s => s + d); setTick(t => t + 1); };
   const pick = (i: number) => go(((i - active + N + 3) % N) - 3);
-  const rx = desk ? 260 : 125, ry = desk ? 110 : 68, w = desk ? 200 : 120, h = desk ? 80 : 56;
+  const w0 = desk ? 200 : 120; const rx = Math.max(90, Math.min(desk ? 260 : 125, cw ? (cw - w0 * 0.9) / 2 : 999)), ry = desk ? 110 : 68, w = desk ? 200 : 120, h = desk ? 80 : 56;
   const [name, role, body] = agents[active];
   return (
     <div className="mt-10 grid items-center gap-8 lg:grid-cols-[1.3fr_1fr]">
-      <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+      <div ref={box} className="min-w-0" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
         <div className="relative mx-auto" style={{ height: ry * 2 + h + 40, maxWidth: rx * 2 + w }}>
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-dashed" style={{ width: rx * 2, height: ry * 2 }} />
           <div className="absolute left-1/2 top-1/2 z-[5] grid h-[76px] w-[76px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border bg-background shadow-sm"><Eye size={26} /></div>
