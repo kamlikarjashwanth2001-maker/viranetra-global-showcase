@@ -15,24 +15,24 @@ export function AgentOrbit() {
   const [tick, setTick] = useState(0);
   const box = useRef<HTMLDivElement>(null);
   const [cw, setCw] = useState(0);
-  useEffect(() => { const el = box.current; if (!el) return; const o = new ResizeObserver(([e]) => setCw(e.contentRect.width)); o.observe(el); return () => o.disconnect(); }, []);
+  useEffect(() => { const el = box.current; if (!el) return; const o = new ResizeObserver((es) => setCw(es[0]?.contentRect.width ?? 0)); o.observe(el); return () => o.disconnect(); }, []);
   useEffect(() => { const m = window.matchMedia('(min-width:640px)'); const f = () => setDesk(m.matches); f(); m.addEventListener('change', f); return () => m.removeEventListener('change', f); }, []);
   useEffect(() => { if (paused || hover || reduced) return; const t = setInterval(() => setStep(s => s + 1), 3000); return () => clearInterval(t); }, [paused, hover, reduced, tick]);
   const active = ((step % N) + N) % N;
   const go = (d: number) => { setStep(s => s + d); setTick(t => t + 1); };
   const pick = (i: number) => go(((i - active + N + 3) % N) - 3);
   const w0 = desk ? 200 : 120; const rx = Math.max(70, Math.min(desk ? 260 : 125, cw ? (cw - w0) / 2 : 999)), ry = desk ? 110 : 68, w = desk ? 200 : 120, h = desk ? 80 : 56;
-  const [name, role, body] = agents[active];
+  const [name, role, body] = agents[active] ?? agents[0]!;
   return (
     <div className="mt-10 grid items-center gap-8 lg:grid-cols-[1.3fr_1fr]">
       <div ref={box} className="min-w-0" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
         <div className="relative mx-auto" style={{ height: ry * 2 + h + 40, maxWidth: rx * 2 + w }}>
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-dashed" style={{ width: rx * 2, height: ry * 2 }} />
           <div className="absolute left-1/2 top-1/2 z-[5] grid h-[76px] w-[76px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border bg-background shadow-sm"><Eye size={26} /></div>
-          {agents.map(([n], i) => {
+          {agents.map((ag, i) => { const n = ag[0];
             const a = ((i - step) * 360 / N + 90) * Math.PI / 180;
             const depth = (Math.sin(a) + 1) / 2;
-            const [bg, Icon] = tiles[i];
+            const [bg, Icon] = tiles[i] ?? tiles[0];
             const front = i === active;
             return (
               <motion.button key={n} type="button" onClick={() => pick(i)} aria-label={`Show ${n}`} aria-pressed={front}
