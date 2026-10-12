@@ -21,7 +21,7 @@ export function AgentOrbit() {
   const active = ((step % N) + N) % N;
   const go = (d: number) => { setStep(s => s + d); setTick(t => t + 1); };
   const pick = (i: number) => go(((i - active + N + 3) % N) - 3);
-  const w0 = desk ? 200 : 120; const rx = Math.max(90, Math.min(desk ? 260 : 125, cw ? (cw - w0 * 0.9) / 2 : 999)), ry = desk ? 110 : 68, w = desk ? 200 : 120, h = desk ? 80 : 56;
+  const w0 = desk ? 200 : 120; const rx = Math.max(70, Math.min(desk ? 260 : 125, cw ? (cw - w0) / 2 : 999)), ry = desk ? 110 : 68, w = desk ? 200 : 120, h = desk ? 80 : 56;
   const [name, role, body] = agents[active];
   return (
     <div className="mt-10 grid items-center gap-8 lg:grid-cols-[1.3fr_1fr]">
