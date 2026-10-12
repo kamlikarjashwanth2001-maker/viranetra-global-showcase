@@ -112,12 +112,22 @@ const KNOWLEDGE_RESPONSES: Array<{
     actionLink: { text: 'Partner With Us', href: '/contact', hash: 'partner' },
   },
   {
-    triggers: ['company', 'hith', 'hyderabad', 'founders', 'who made', 'contact', 'location'],
+    triggers: ['company', 'hith', 'hyderabad', 'contact', 'location'],
     reply:
-      "Viranetra is engineered by **HITH Technologies Pvt. Ltd.** based in **Hyderabad, India**.\n\n" +
+      "Viranetra is engineered by **HITH Technologies Pvt. Ltd.** (Hackers In Threat Hunt) based in **Hyderabad, India**.\n\n" +
       "Our mission is transforming cybersecurity into trusted, explainable, and human-centric decisions through governed Agentic AI.",
-    quickReplies: ['What is Viranetra?', 'Tell me about the Vira Agents', 'Contact Us'],
+    quickReplies: ['Who are the founders?', 'What is Viranetra?', 'Contact Us'],
     actionLink: { text: 'About Viranetra', href: '/about' },
+  },
+  {
+    triggers: ['founder', 'founders', 'ceo', 'cbo', 'akhil', 'nikhila', 'leadership', 'team', 'who made'],
+    reply:
+      "Viranetra is spearheaded by the leadership of **Hackers In Threat Hunt (HITH Technologies Pvt. Ltd.)**:\n\n" +
+      "• 👨‍💼 **Akhil Gabbeta**: Founder & CEO, Hackers In Threat Hunt\n" +
+      "• 👩‍💼 **Nikhila Abbarla**: Co-Founder & Chief Business Officer, Hackers In Threat Hunt\n\n" +
+      "You can view their leadership profiles on our About page.",
+    quickReplies: ['What is Viranetra?', 'Tell me about the Vira Agents', 'Partner with Us'],
+    actionLink: { text: 'View Leadership on About Page', href: '/about' },
   },
 ];
 
