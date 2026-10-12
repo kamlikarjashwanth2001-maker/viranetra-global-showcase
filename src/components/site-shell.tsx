@@ -5,12 +5,121 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Button } from './ui/button';
 import { journey } from '../lib/marketing';
 const navigation = [['Home','/'],['Platform','/platform'],['Capabilities','/capabilities'],['Industries','/industries'],['About','/about']] as const;
-export function Brand() { return <Link to="/" className="text-sm font-extrabold" aria-label="Viranetra home">VIRANETRA<sup>®</sup></Link>; }
+export function Brand() {
+  return (
+    <Link to="/" className="group flex items-center gap-3 transition-opacity hover:opacity-90" aria-label="Viranetra home">
+      <span className="grid size-9 place-items-center bg-[#e01414] text-white font-['Outfit',sans-serif] font-black text-sm tracking-normal shadow-[0_0_15px_rgba(224,20,20,0.4)]">
+        V
+      </span>
+      <div className="flex items-baseline gap-2.5">
+        <span className="font-['Outfit',sans-serif] text-xl sm:text-2xl font-bold tracking-[0.24em] text-white">
+          VIRANETRA
+        </span>
+        <span className="hidden sm:inline font-['Outfit',sans-serif] text-[11px] font-semibold tracking-[0.22em] text-[#9ba5b5]">
+          DECISION INTELLIGENCE
+        </span>
+      </div>
+    </Link>
+  );
+}
 export function Reveal({children,className=''}:{children:ReactNode;className?:string}) { const reduced=useReducedMotion(); return <motion.div className={className} initial={reduced?false:{opacity:0,y:18}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.1}} transition={{duration:.5}}>{children}</motion.div>; }
 export function Action({children,hash,secondary=false}:{children:ReactNode;hash?:string;secondary?:boolean}) { return <Button asChild variant={secondary?'link':'default'} className={secondary?'h-11 px-0 text-xs text-foreground':'pill'}><Link to="/contact" hash={hash??''}>{children}{!secondary&&<span className="arrow-disc"><ArrowRight size={15}/></span>}</Link></Button>; }
 export function SiteShell({children}:{children:ReactNode}) {
- const [open,setOpen]=useState(false);const path=useRouterState({select:s=>s.location.pathname});
- return <div className="site-frame relative"><header className="nav-wrap"><nav className="floating-nav" aria-label="Main navigation"><span className="md:hidden"><Brand/></span><div className="hidden items-center gap-6 md:flex">{navigation.map(([name,to])=><Link key={to} to={to} className={`text-[11px] transition-opacity hover:opacity-60 ${path===to?'font-semibold':'font-normal'}`}>{name}</Link>)}</div><div className="hidden md:block"><Action>Request Demo</Action></div><Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label={open?'Close navigation':'Open navigation'} aria-expanded={open} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</Button></nav>{open&&<nav className="mx-6 mt-3 grid gap-1 rounded-2xl bg-background p-4 shadow-sm md:hidden" aria-label="Mobile navigation">{navigation.map(([name,to])=><Link key={to} to={to} onClick={()=>setOpen(false)} className="rounded-lg px-4 py-3 text-sm">{name}</Link>)}<Action>Request Demo</Action></nav>}</header><main>{children}</main><div className="content-grid"><section className="section text-center" aria-labelledby="trial-heading"><Reveal><span className="mb-4 inline-flex rounded-full bg-mint px-4 py-2 text-[10px] font-medium">YOUR NEXT TRUSTED DECISION STARTS HERE</span><h2 id="trial-heading" className="section-title">Try Viranetra free for 15 days</h2><div className="mt-6 flex flex-wrap justify-center gap-7"><Action hash="trial-request">Request Free Trial</Action><Action secondary>Contact Us</Action></div></Reveal></section></div><footer className="px-8 py-10 md:px-20"><div className="grid gap-8 md:grid-cols-[1fr_auto]"><div><Brand/><p className="mt-3 max-w-72 text-xs">Agentic AI-Powered Cyber Decision Intelligence Platform.</p><p className="mt-2 text-xs">HITH Technologies Pvt. Ltd.</p></div><nav className="grid grid-cols-3 gap-x-8 gap-y-4 text-xs" aria-label="Footer navigation">{navigation.map(([name,to])=><Link key={to} to={to}>{name}</Link>)}<Link to="/contact">Contact</Link><Link to="/privacy">Privacy</Link><Link to="/terms">Terms</Link></nav></div><div className="mt-8 flex flex-wrap justify-between gap-3 border-t pt-5 text-[10px] text-muted-foreground"><span>© 2026 Viranetra</span><span>Transforming cybersecurity into trusted decisions.</span></div></footer></div>;
+  const [open,setOpen]=useState(false);
+  const path=useRouterState({select:s=>s.location.pathname});
+  return (
+    <div className="site-frame relative">
+      <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#060a12]/95 backdrop-blur-xl">
+        <div className="mx-auto flex h-20 max-w-[1248px] items-center justify-between px-6 lg:px-10">
+          <Brand />
+          <nav className="hidden items-center gap-8 lg:gap-10 font-['Outfit',sans-serif] text-[13px] lg:text-[14px] font-semibold tracking-[0.18em] text-[#9ba5b5] md:flex" aria-label="Main navigation">
+            {navigation.map(([name,to])=>(
+              <Link
+                key={to}
+                to={to}
+                className={`transition-colors uppercase hover:text-white ${
+                  path===to ? 'text-white font-bold' : ''
+                }`}
+              >
+                {name}
+              </Link>
+            ))}
+          </nav>
+          <div className="hidden md:flex items-center">
+            <Link
+              to="/contact"
+              className="bg-[#e01414] px-6 py-2.5 font-['Outfit',sans-serif] text-xs lg:text-[13px] font-bold tracking-[0.16em] text-white shadow-[0_0_18px_rgba(224,20,20,0.35)] transition-all hover:bg-[#ff1e1e] hover:shadow-[0_0_24px_rgba(224,20,20,0.55)] uppercase"
+            >
+              REQUEST DEMO
+            </Link>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-white hover:bg-white/10 md:hidden"
+            aria-label={open?'Close navigation':'Open navigation'}
+            aria-expanded={open}
+            onClick={()=>setOpen(!open)}
+          >
+            {open ? <X /> : <Menu />}
+          </Button>
+        </div>
+        {open && (
+          <nav className="grid gap-2 border-t border-white/10 bg-[#060a12] p-5 font-['Outfit',sans-serif] text-xs font-semibold tracking-[0.16em] uppercase md:hidden" aria-label="Mobile navigation">
+            {navigation.map(([name,to])=>(
+              <Link
+                key={to}
+                to={to}
+                onClick={()=>setOpen(false)}
+                className={`rounded-lg px-4 py-3 ${path===to ? 'bg-white/10 text-white font-bold' : 'text-[#9ba5b5] hover:text-white'}`}
+              >
+                {name}
+              </Link>
+            ))}
+            <Link
+              to="/contact"
+              onClick={()=>setOpen(false)}
+              className="mt-2 bg-[#e01414] px-4 py-3 text-center text-white font-bold tracking-[0.16em]"
+            >
+              REQUEST DEMO
+            </Link>
+          </nav>
+        )}
+      </header>
+      <main>{children}</main>
+      <div className="content-grid">
+        <section className="section text-center" aria-labelledby="trial-heading">
+          <Reveal>
+            <span className="mb-4 inline-flex rounded-full bg-mint px-4 py-2 text-[10px] font-medium">YOUR NEXT TRUSTED DECISION STARTS HERE</span>
+            <h2 id="trial-heading" className="section-title">Try Viranetra free for 15 days</h2>
+            <div className="mt-6 flex flex-wrap justify-center gap-7">
+              <Action hash="trial-request">Request Free Trial</Action>
+              <Action secondary>Contact Us</Action>
+            </div>
+          </Reveal>
+        </section>
+      </div>
+      <footer className="px-8 py-10 md:px-20">
+        <div className="grid gap-8 md:grid-cols-[1fr_auto]">
+          <div>
+            <Brand />
+            <p className="mt-3 max-w-72 text-xs">Agentic AI-Powered Cyber Decision Intelligence Platform.</p>
+            <p className="mt-2 text-xs">HITH Technologies Pvt. Ltd.</p>
+          </div>
+          <nav className="grid grid-cols-3 gap-x-8 gap-y-4 text-xs" aria-label="Footer navigation">
+            {navigation.map(([name,to])=><Link key={to} to={to}>{name}</Link>)}
+            <Link to="/contact">Contact</Link>
+            <Link to="/privacy">Privacy</Link>
+            <Link to="/terms">Terms</Link>
+          </nav>
+        </div>
+        <div className="mt-8 flex flex-wrap justify-between gap-3 border-t pt-5 text-[10px] text-muted-foreground">
+          <span>© 2026 Viranetra</span>
+          <span>Transforming cybersecurity into trusted decisions.</span>
+        </div>
+      </footer>
+    </div>
+  );
 }
 export function HeroStage() { const chips=[['Investigation',Search,'bg-cyan','chip-a'],['Governance',ShieldCheck,'bg-peach','chip-b'],['Validation',Users,'bg-mint','chip-c'],['Decision',Sparkles,'bg-lavender','chip-d']] as const;return <div className="hero-stage"><div className="wordmark">VIRANETRA<sup>®</sup></div><img src="/robot.png" width="268" height="505" className="robot" alt="Viranetra hooded robot mascot with glowing red eyes" fetchPriority="high"/>{chips.map(([label,Icon,tone,pos])=><div key={label} className={`chip ${pos}`}><span className={`icon-tile ${tone}`}><Icon size={15}/></span>{label}</div>)}</div>; }
 export function PageIntro({code,title,body}:{code:string;title:string;body:string}) { return <><HeroStage/><div className="content-grid"><section className="section text-center"><Reveal><SectionLabel>{code.replace('DOSSIER / ','')}</SectionLabel><h1 className="mx-auto mt-5 max-w-[760px] text-4xl font-semibold leading-[1.1] md:text-5xl">{title}</h1><p className="mx-auto mt-5 max-w-[620px] text-sm">{body}</p></Reveal></section></div></>; }
